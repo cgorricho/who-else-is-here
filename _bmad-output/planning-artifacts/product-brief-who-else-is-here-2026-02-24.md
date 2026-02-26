@@ -252,3 +252,34 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 - Ambient avatar assistant for session engagement management
 - Event intelligence data licensing — anonymized, aggregated cross-event insights on attendee behavior patterns by industry, role, and session type
 - The only source of cross-session attendance flow data in the events industry — a compounding data moat that no competitor can replicate without the same installed base
+
+---
+
+## Product Brief Review — Agent Panel Insights
+
+*Review conducted 2026-02-25 by BMAD agent panel: Mary (Business Analyst), John (Product Manager), Winston (Architect), Sally (UX Designer), Victor (Innovation Strategist)*
+
+### Critical Dependencies to Address in PRD
+
+1. **LinkedIn OAuth scope validation** — LinkedIn's API has become increasingly restrictive. Must validate before PRD which profile fields (name, photo, title, company) are accessible under current OAuth products and approval requirements. If restricted, the "instant professional context" differentiator needs a contingency plan.
+2. **LinkedIn API rate limits** — At conference registration, 200+ simultaneous scans could trigger rate limiting. Caching strategy for LinkedIn profile data is architecturally essential.
+3. **Real-time list update model** — The attendee list must update automatically with no manual refresh action. Architecture must support this (WebSocket or equivalent) while remaining lightweight. Zero manual user actions beyond scan and browse — this is a core design principle.
+
+### Architecture Decisions for PRD
+
+1. **Multi-tenant from day one** — Even though MVP serves pilot events, the database schema must support multi-tenancy to avoid costly refactoring. Single-tenant MVP designs that require migration later are a known anti-pattern.
+2. **Session-aware data schema** — Data model must include event → session hierarchy from day one, even though MVP UI only exposes single-event views. The back-end data capture for the multi-session future must not require schema migration.
+3. **Event lifecycle management** — Define when an event "ends" (manual organizer action vs. scheduled time) to trigger the 5-day post-event access window and eventual data archival.
+
+### UX Insights for PRD
+
+1. **Cold-start experience** — Early scanners will see a nearly empty list. This is a critical "aha moment" risk. Requires positive reinforcement messaging that builds anticipation: "Users are actively scanning the QR code — get ready for a different networking experience." Create tension and excitement about who else is arriving, not a suggestion to "come back later."
+2. **Feedback prompt timing** — Move the unstructured feedback prompt to post-event only. Interrupting profile browsing flow mid-event breaks the core behavior we want to encourage. Let users network; ask for feedback after.
+3. **The app name IS the value proposition** — "Who Else Is Here" naturally reinforces the core action every time it's mentioned. Leverage this in all onboarding copy and QR code signage.
+
+### Strategic Insights for PRD and Beyond
+
+1. **"Nice to have" → "Must have" transition** — The moment Karen depends on analytics for sponsor reports, the app shifts from lightweight add-on to critical event infrastructure. The PRD should account for reliability and uptime expectations that come with this shift.
+2. **Recurring events are the fastest path to organizer lock-in** — Pilot events are recurring: RUMC Job Networking (biweekly), Atlanta Job Seekers (weekly, Fridays), C3G (weekly, Mondays). Month-over-month attendee list evolution ("Who's new this week?"), attendance streaks, and retention signals for organizers are high-value features that compound with each recurrence. This should be prioritized in V2 alongside the session-first model.
+3. **Agenda parsing as operational cost** — For MVP pilots, Carlos will manually parse organizer agendas using AI-assisted tooling and document the process. This is acceptable at pilot scale but becomes one of the first urgent automation needs if the app gains traction.
+4. **Activation gate simplification** — Start with the 25% activation rate as a single metric across all event types. Pilot data from small recurring events will reveal whether event-type differentiation is needed. KISS principle applies.
