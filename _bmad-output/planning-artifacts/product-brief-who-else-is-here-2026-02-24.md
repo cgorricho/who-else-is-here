@@ -283,3 +283,66 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 2. **Recurring events are the fastest path to organizer lock-in** — Pilot events are recurring: RUMC Job Networking (biweekly), Atlanta Job Seekers (weekly, Fridays), C3G (weekly, Mondays). Month-over-month attendee list evolution ("Who's new this week?"), attendance streaks, and retention signals for organizers are high-value features that compound with each recurrence. This should be prioritized in V2 alongside the session-first model.
 3. **Agenda parsing as operational cost** — For MVP pilots, Carlos will manually parse organizer agendas using AI-assisted tooling and document the process. This is acceptable at pilot scale but becomes one of the first urgent automation needs if the app gains traction.
 4. **Activation gate simplification** — Start with the 25% activation rate as a single metric across all event types. Pilot data from small recurring events will reveal whether event-type differentiation is needed. KISS principle applies.
+
+---
+
+## Architecture Decision Record: Web App vs. Native App
+
+*Decision reviewed 2026-02-26 by BMAD agent panel: Winston (Architect), John (Product Manager), Sally (UX Designer), Victor (Innovation Strategist)*
+
+### Decision: Mobile-Responsive Web App (PWA/SPA)
+
+**Status:** Confirmed — unanimous agent panel recommendation, validated by product owner.
+
+### Context
+
+Before entering the PRD phase, the team evaluated whether Who Else Is Here should be built as a web app (PWA/SPA) or a native mobile app (iOS/Android via App Store/Google Play). This is a foundational architecture decision that affects development cost, time to market, user adoption, and strategic positioning.
+
+### Technical Comparison
+
+| Factor | Web App (PWA) | Native App |
+|---|---|---|
+| QR code → first use | Instant. Scan → browser → done. Zero friction. | Scan → App Store → install → open → find event. 5+ steps, 2-3 min. |
+| LinkedIn OAuth | Standard browser redirect. Well-supported. | Requires ASWebAuthenticationSession (iOS) / Custom Tabs (Android). More complex. |
+| Real-time updates | WebSocket in browser — mature, reliable. | WebSocket in native — equally capable. |
+| Push notifications | PWA support on Android; limited on iOS (since 16.4). | Full support on both platforms. |
+| Development cost | One codebase, one deployment, one update cycle. | Two codebases (or cross-platform framework). Two app store review cycles. |
+| Update speed | Deploy instantly. Bug fix live in minutes. | App store review: 24-72 hours (Apple). |
+| Revenue control | No intermediary. No revenue cut. | Apple/Google take 30% of in-app purchases. |
+
+### Arguments Against Native App
+
+1. **Destroys the 30-second promise.** The core value proposition is "QR code to attendee list in under 30 seconds." An app download converts this to 2-3 minutes with a decision point ("Do I really want to install an app for this?") where 40-60% of users abandon. Industry data: app install conversion from QR scan is 15-25% vs. 70-85% for web page visits — a 3x adoption penalty.
+
+2. **Undermines the core brand.** "Radical simplicity" is a key differentiator. The native app journey delivers friction acknowledgment ("that was more effort than expected") instead of the delight moment ("wow, that was easy") the web app provides.
+
+3. **Socially awkward at events.** At a live networking event, Alex is likely mid-conversation when scanning. A web app allows a quick peek at the list while remaining socially engaged. A native app demands 2-3 minutes of full-attention downloading — disruptive at a networking event.
+
+4. **Surrenders distribution control.** Apple and Google become gatekeepers. They take 30% of future in-app purchases (relevant for V3 attendee tiers). They can reject updates, change policies overnight, or require unwanted features (e.g., "Sign in with Apple" — ironic for a LinkedIn-first product).
+
+5. **No unique native capability needed.** The core loop (scan → browse → tap → LinkedIn) works perfectly in a browser. Camera access for QR scanning is unnecessary since users scan with their phone's native camera, which opens... a browser.
+
+### Arguments For Native App (Considered and Weighed)
+
+1. **Perceived credibility** — "Download our app" signals investment and permanence. *Counter: credibility is earned through product value, not app store presence.*
+2. **Push notifications for recurring events** — Native push could drive re-engagement. *Counter: PWA push works on Android; for iOS, post-event email/LinkedIn messaging achieves the same goal without the native dependency.*
+3. **Home screen presence** — App icon as constant reminder. *Counter: PWA add-to-home-screen prompt for recurring attendees achieves this without the install barrier.*
+
+### Strategic Rationale
+
+The barriers to entry for this product are NOT technical — someone could clone the core functionality quickly regardless of web or native. The real barriers are:
+
+1. **Network effects** — First app deployed at an event wins. Competitors can't ask attendees to scan a second QR code.
+2. **Data moat** — Every event generates unique journey data. After 100 events, no competitor can replicate this intelligence without running 100 events themselves.
+3. **Organizer relationships** — Once embedded in Karen's event workflow, switching costs are emotional and operational.
+4. **Speed to market** — Web app ships faster, enabling first-mover advantage at pilot events. While competitors wait for App Store approval, we're already generating data at C3G.
+
+A competitor building a native app would face a 3x adoption penalty at every event while our web app activates users instantly from the same QR code. Their "higher quality" approach becomes their disadvantage.
+
+### Escape Hatch
+
+If a specific native capability becomes essential post-MVP, a thin native wrapper (React Native WebView or Capacitor) can package the existing web app into a native shell in days, not months. This preserves optionality without incurring native development costs upfront.
+
+### Decision Outcome
+
+**Web App (PWA/SPA)** — confirmed as the right architecture for MVP and foreseeable future. This decision optimizes for the product's core strengths: instant activation, radical simplicity, distribution control, and speed to market.
