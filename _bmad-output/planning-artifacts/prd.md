@@ -22,7 +22,7 @@ workflowType: 'prd'
 
 **Author:** Carlos
 **Date:** 2026-02-26
-**Document Status:** Complete (all PRD workflow steps executed). Reviewed through 5 Party Mode expert panel sessions covering metrics, user journeys, functional requirements, non-functional requirements, and document polish.
+**Document Status:** Complete and validated. Reviewed through 6 Party Mode expert panel sessions. 12-step validation completed with 23 violations identified and resolved (0 remaining). Post-validation Party Mode review incorporated branding principle, FR dependency, and NFR benchmark additions.
 
 ## Executive Summary
 
@@ -30,7 +30,7 @@ Who Else Is Here is a real-time, event-scoped attendee directory that bridges pr
 
 The product solves a universal problem: at professional events, attendees are blind to who else is in the room. A 1,500-person conference typically yields 10-15 meaningful connections — limited by seating, timing, and proximity. The larger the event, the worse the ratio. Who Else Is Here eliminates this blindness by making every attendee visible and reachable in real time.
 
-The product serves two primary users: **attendees** (Alex) who gain visibility into the full room and can direct connection efforts strategically, and **event organizers** (Karen) who gain unprecedented analytics on networking activity — data that currently does not exist in the events industry. For organizers, the app provides real-time scan counts, profile tap metrics, and attendee engagement patterns that prove event ROI to sponsors and justify ticket prices.
+The product serves two primary users: **attendees** (Alex) who gain visibility into the full room and can direct connection efforts strategically, and **event organizers** (Karen) who gain first-of-its-kind analytics on networking activity — data that currently does not exist in the events industry. For organizers, the app provides real-time scan counts, profile tap metrics, and attendee engagement patterns that prove event ROI to sponsors and justify ticket prices.
 
 The emotional driver for adoption is bidirectional: attendees scan not just to find others, but to **be found**. The job seeker wants the hiring manager to see them. The founder wants the investor to notice them. Every scan creates value for every other user on the list — a network effect embedded in a single action.
 
@@ -38,7 +38,7 @@ The emotional driver for adoption is bidirectional: attendees scan not just to f
 
 Who Else Is Here is not a networking platform — it is a **bridge to LinkedIn, scoped to a live event**. Every competitor (Bizzabo, Swapcard, Whova, Grip) builds in-app messaging, profiles, and connection management — duplicating what LinkedIn already does while creating another silo. Who Else Is Here refuses to compete with LinkedIn and instead leverages it. The app's job is done the moment someone taps a name and lands on a LinkedIn profile. That restraint is the innovation.
 
-Key differentiators: platform-agnostic deployment (works alongside any event with zero integration), LinkedIn-as-identity (professional context is instant and trusted, not self-reported), radical simplicity (the entire UI is essentially a single screen with a list), and zero-burden organizer onboarding (share an agenda, receive QR codes — we handle the rest).
+Key differentiators: platform-agnostic deployment (works alongside any event with zero integration), LinkedIn-as-identity (professional context is instant and trusted, not self-reported), radical simplicity (the entire UI is a single screen with a list), and zero-burden organizer onboarding (share an agenda, receive QR codes — we handle the rest).
 
 Strategically, the product generates unique attendee journey data — scan timestamps, profile taps, engagement patterns — that no other platform captures. This data compounds over time into a defensible market asset: cross-event intelligence on professional networking behavior that no competitor can replicate without building the same installed base of events.
 
@@ -146,7 +146,7 @@ Strategically, the product generates unique attendee journey data — scan times
 ### Detected Innovation Areas
 
 **1. Anti-Platform Architecture (Product Innovation)**
-Who Else Is Here challenges the fundamental assumption of the event networking market: that a networking tool must BE a networking platform. Every competitor (Bizzabo, Swapcard, Whova, Grip) builds in-app messaging, profiles, connection management, and content — creating destination apps that compete with LinkedIn. Who Else Is Here does the opposite: it refuses to compete with LinkedIn and instead serves as a bridge to it. The app's job is done the moment someone taps a name and lands on a LinkedIn profile. This radical restraint — doing less on purpose — is the core product innovation. It eliminates the "yet another platform" fatigue that plagues event tech adoption.
+Who Else Is Here challenges the fundamental assumption of the event networking market: that a networking tool must BE a networking platform. Every competitor (Bizzabo, Swapcard, Whova, Grip) builds in-app messaging, profiles, connection management, and content — creating destination apps that compete with LinkedIn. Who Else Is Here does the opposite: it refuses to compete with LinkedIn and instead bridges to it. The app's job is done the moment someone taps a name and lands on a LinkedIn profile. This radical restraint — doing less on purpose — is the core product innovation. It eliminates the "yet another platform" fatigue that plagues event tech adoption.
 
 **2. Journey Data as Byproduct Intelligence (Business Model Innovation)**
 The product's primary function is attendee networking. But every scan, tap, and browse generates unique attendee journey data that no other platform captures. This data — which sessions people attend, who they try to connect with, when networking peaks, how attendees flow through a multi-day event — accumulates into a market intelligence asset that compounds over time. After 100+ events, Who Else Is Here will possess the only dataset of cross-event professional networking behavior patterns in the industry. The innovation is that the data moat is not the product's purpose — it's an emergent property of its use.
@@ -348,7 +348,7 @@ Dave watches. The social proof is building. Two people at his table are now show
 
 **Climax — Path B (Dave Doesn't Convert):** Dave decides not to scan. That's fine. Dave is not on the attendee list, which means the list is incomplete — but the app's value doesn't collapse because Dave opted out. The list still shows everyone who DID scan. Dave's absence is invisible to other users. Dave may convert at the next session after hearing others talk about it.
 
-**Resolution:** Whether Dave converts or not, the app is designed to be resilient to partial adoption. The value proposition doesn't require 100% scanning. But every Dave who converts makes the list more complete, which makes the app more valuable for every Alex.
+**Resolution:** Whether Dave converts or not, the app tolerates partial adoption. The value proposition doesn't require 100% scanning. But every Dave who converts makes the list more complete, which makes the app more valuable for every Alex.
 
 **Requirements Revealed:**
 - LinkedIn OAuth scope must be minimal and clearly communicated — name, photo, title, company ONLY. No messaging, contacts, or posting access.
@@ -530,7 +530,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 **Visual identity:** Must echo the web app's visual identity — same color palette, same typography, same "radical simplicity" aesthetic. When Karen visits the website and then sees the QR code at her event, visual continuity builds trust.
 
 **Content structure:**
-1. **Hero section:** "See everyone at your event. One QR code. Zero downloads." + product screenshot/mockup
+1. **Hero section:** "Who Else Is Here?" as primary headline — the product name doubles as the value proposition and the user's core question. Subheadline: "See everyone at your event. One QR code. Zero downloads." + product screenshot/mockup
 2. **How it works:** 3-step visual (Scan → Browse → Connect on LinkedIn)
 3. **For organizers:** "Add networking intelligence to your event. Zero effort. Real-time analytics on who's connecting."
 4. **Social proof:** Testimonial space (populate after first pilot — even a single quote from Karen)
@@ -666,9 +666,9 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - **FR4:** Attendee can access the attendee list from any supported browser on mobile or desktop
 - **FR5:** System restricts LinkedIn OAuth to minimal scope (name, photo, title, company only — no messaging, contacts, or posting permissions)
 - **FR6:** System resolves short URL slugs to the correct event and directs attendees to the corresponding attendee list
-- **FR7:** System displays an appropriate message when an attendee accesses an invalid, expired, or archived event URL
-- **FR8:** System provides visual feedback during the authentication and list-loading process so the attendee knows the app is working
-- **FR9:** System displays meaningful error messaging when LinkedIn authentication fails, with guidance to retry
+- **FR7:** System displays a status-specific message (invalid, expired, or archived) when an attendee accesses a non-active event URL, with guidance to contact the event organizer
+- **FR8:** System displays a loading indicator during the authentication and list-loading process so the attendee knows the app is working
+- **FR9:** System displays an error message identifying the failure type when LinkedIn authentication fails, with a retry action
 - **FR10:** System supports multiple concurrent sessions per attendee per event (e.g., phone at event and laptop at home during post-event window)
 
 ### Attendee List & Networking
@@ -713,8 +713,8 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - **FR36:** Admin can view total scan count and activation rate for an event
 - **FR37:** Admin can view total profile taps and average taps per attendee
 - **FR38:** Admin can view an activity timeline showing scan and tap patterns over the event duration
-- **FR39:** Admin can view basic attendee journey data (which attendees scanned, when they returned, what they tapped)
-- **FR40:** Admin can view distraction health metrics showing the ratio of profile taps occurring during active event sessions versus breaks
+- **FR39:** Admin can view attendee journey data (scan timestamps, return visits, profile taps per attendee)
+- **FR40:** Admin can view distraction health metrics showing the ratio of profile taps occurring during active event sessions versus breaks (depends on FR28: event agenda must include session/break times for ratio calculation)
 
 ### Event Lifecycle Management
 
@@ -722,7 +722,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - **FR42:** System disables QR code scanning for post-event status events
 - **FR43:** System automatically transitions events from post-event to archived status after 5 days
 - **FR44:** System retains all event data after archiving for analytics and journey intelligence
-- **FR45:** System retains archived event data for a defined retention period, after which attendee personal data is anonymized or purged
+- **FR45:** System retains archived event data for 12 months after the event end date, after which attendee personal data (name, photo URL, LinkedIn profile URL) is anonymized by replacing with anonymized identifiers while retaining event-level aggregate analytics and timestamp data
 - **FR46:** Admin can view the lifecycle status and countdown timer for each event
 
 ### Data Capture & Infrastructure
@@ -737,7 +737,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 ### Real-Time Communication
 
 - **FR53:** System broadcasts attendee list updates to all connected clients within 3 seconds of a new scan
-- **FR54:** System gracefully handles connection drops and reconnections without data loss
+- **FR54:** When a client connection drops, the system automatically attempts reconnection with exponential backoff (initial 1s, max 30s). Upon reconnection, the server delivers all attendee list updates missed during disconnection. If reconnection fails after 60 seconds, the client displays the offline indicator (FR19) and falls back to cached list browsing (FR18)
 
 ## Non-Functional Requirements
 
@@ -753,7 +753,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 | **NFR6:** Time to interactive on 3G connection | <3 seconds | Worst-case conference WiFi. App must be usable even on degraded connections. |
 | **NFR7:** PWA total cache payload | <2MB | Minimizes data consumption for attendees with limited data plans. |
 | **NFR8:** System-controlled OAuth flow (redirect, callback processing, list rendering) | <5 seconds | Testable system target. The LinkedIn OAuth screen itself is outside our control. Total end-to-end experience including LinkedIn's UI targets <30 seconds aspirationally. |
-| **NFR9:** Large attendee list rendering (500 items with lazy-loaded photos) | Scrollable and responsive without visible frame drops or jank | Largest supported event scenario. Rendering performance is distinct from connection scaling. |
+| **NFR9:** Large attendee list rendering (500 items with photos) | Scrollable and responsive without visible frame drops. No frame longer than 33ms (30fps floor). | Largest supported event scenario. Rendering performance is distinct from connection scaling. |
 
 ### Security
 
@@ -761,12 +761,12 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 |---|---|---|
 | **NFR10:** All data transmission encrypted via HTTPS | 100% of connections | LinkedIn OAuth requires it. No exceptions. |
 | **NFR11:** LinkedIn OAuth tokens stored securely server-side | Never exposed to client-side code | Token leakage would compromise attendee LinkedIn accounts. |
-| **NFR12:** OAuth token refresh handled transparently | No user-visible interruption | Expired tokens during post-event browsing must not break the experience. |
+| **NFR12:** OAuth token refresh handled transparently | Token refresh completes within 5 seconds with no page reload required | Expired tokens during post-event browsing must not break the experience. |
 | **NFR13:** Attendee personal data accessible only within the event scope | Zero cross-event data leakage | FR51 (data isolation) requires enforcement. Attendee at Event A cannot see Event B data. |
 | **NFR14:** Admin panel access protected by authentication | No unauthenticated admin access | FR26 requires secure admin credentials. |
 | **NFR15:** LinkedIn OAuth scope requests only permitted fields | Name, photo, title, company — nothing else | Requesting unnecessary permissions destroys trust (Dave's journey). LinkedIn may revoke apps that over-request. |
-| **NFR16:** Attendee data handling compliant with LinkedIn API Terms of Service | Full compliance | LinkedIn can revoke API access for ToS violations. This is an existential dependency. |
-| **NFR17:** Privacy policy publicly accessible | Before first pilot | Required by LinkedIn OAuth and builds trust with privacy-conscious attendees. |
+| **NFR16:** Attendee data handling compliant with LinkedIn API Terms of Service | Full compliance. Verified via manual review of LinkedIn API terms before each major release. | LinkedIn can revoke API access for ToS violations. This is an existential dependency. |
+| **NFR17:** Privacy policy publicly accessible | Published at a stable URL and linked from app footer and marketing website | Required by LinkedIn OAuth and builds trust with privacy-conscious attendees. |
 
 ### Scalability
 
@@ -776,29 +776,29 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 | **NFR19:** Concurrent active events | 10 simultaneously without degradation | MVP pilots may use 2-3 simultaneously, but the architecture must not impose a premature ceiling. 10 concurrent events covers 6-month growth without rearchitecting. |
 | **NFR20:** Event spike handling (0 → 200 attendees in 15 minutes) | No performance degradation | Realistic conference scenario — registration opens, everyone scans at once. |
 | **NFR21:** Concurrent real-time connections per event | 500 simultaneous | Each connected attendee maintains a persistent connection for live updates. |
-| **NFR22:** Data growth (journey capture over time) | Support 500+ archived events with full journey data without query performance degradation on analytics dashboards | Journey data accumulates as the data moat. 500 events covers 3+ years at current pilot pace. Queries must remain fast as history grows. |
+| **NFR22:** Data growth (journey capture over time) | Support 500+ archived events with full journey data. Analytics dashboard queries complete within 2 seconds at 500-event data volume. | Journey data accumulates as the data moat. 500 events covers 3+ years at current pilot pace. Queries must remain fast as history grows. |
 
 ### Reliability
 
 | Requirement | Target | Rationale |
 |---|---|---|
 | **NFR23:** Uptime during event windows | 99.5% during defined event windows (event start time minus 1 hour through event end time). Scheduled maintenance permitted outside event windows. | Downtime during a live event destroys organizer trust and attendee experience. Scoped to event windows for realistic solo-dev operations. |
-| **NFR24:** Graceful degradation on connectivity loss | Cached list remains browsable, offline indicator shown | FR18-19 require offline resilience. The core browse experience must survive WiFi drops. |
+| **NFR24:** Degradation on connectivity loss | Cached attendee list remains browsable. Offline indicator displays within 3 seconds of connectivity loss. | FR18-19 require offline resilience. The core browse experience must survive WiFi drops. |
 | **NFR25:** Data capture durability | All successfully acknowledged scan and tap events are durably stored. The system acknowledges events only after database persistence is confirmed. | Journey data is the long-term asset. Honest engineering: events that fail before database commit (e.g., server crash mid-request) may be lost, but acknowledged events are guaranteed durable. |
-| **NFR26:** Automatic recovery after server restart | Service resumes without manual intervention | Solo operator (Carlos) cannot be on-call 24/7. The system must self-heal. |
+| **NFR26:** Automatic recovery after server restart | Service resumes within 60 seconds of server restart without manual intervention | Solo operator (Carlos) cannot be on-call 24/7. The system must self-heal. |
 | **NFR27:** Event lifecycle transitions execute reliably | Automated transitions fire even if no admin is logged in | Post-event and archival transitions must happen on schedule regardless of admin activity. |
-| **NFR28:** Zero-downtime deployments | Code updates can be applied without disconnecting active attendees or interrupting real-time updates | Carlos will need to hotfix during live pilots. Deploying must not disrupt attendees mid-browse. |
+| **NFR28:** Near-zero-downtime deployments | Active WebSocket connections experience <5 seconds interruption during deployment. No data loss on in-flight requests. | Carlos will need to hotfix during live pilots. Deploying must not disrupt attendees mid-browse. |
 | **NFR29:** API error rate during active events | <1% of all requests (page loads, OAuth callbacks, data capture writes) | Establishes an explicit error budget for event-time reliability. |
 
 ### Accessibility
 
 | Requirement | Target | Rationale |
 |---|---|---|
-| **NFR30:** WCAG 2.1 Level AA compliance | Full compliance | Committed in Web App Requirements. "Event-proof design" — benefits all users in event environments. |
+| **NFR30:** WCAG 2.1 Level AA compliance | Full compliance. Verified via automated accessibility scan (axe-core or equivalent) with zero critical violations. | Committed in Web App Requirements. "Event-proof design" — benefits all users in event environments. |
 | **NFR31:** Color contrast ratio (text against backgrounds) | Minimum 4.5:1 | Bright venue lighting washes out phone screens. High contrast helps everyone. |
 | **NFR32:** Touch target size | Minimum 44x44px | Standing, one-handed, being bumped at events. Small targets are unusable for everyone. |
-| **NFR33:** Screen reader support | ARIA labels on all interactive elements | Low implementation effort, high impact for visually impaired attendees. |
-| **NFR34:** Keyboard navigation (desktop) | Full Tab/Enter/Escape support | Post-event desktop browsing must be fully keyboard-accessible. |
+| **NFR33:** Screen reader support | All interactive elements programmatically identifiable by assistive technology | Low implementation effort, high impact for visually impaired attendees. |
+| **NFR34:** Keyboard navigation (desktop) | All primary actions (browse list, open profile, dismiss overlays) operable via keyboard. Verified by completing full user flow using only Tab/Enter/Escape. | Post-event desktop browsing must be fully keyboard-accessible. |
 | **NFR35:** Browser zoom support | Fully usable at 200% zoom | Respects system font size settings. Layout must not break. |
 | **NFR36:** Animation and motion sensitivity | All animations respect `prefers-reduced-motion` OS setting. Reduced motion replaces animations with static alternatives. | WCAG 2.1 AA compliance. Users with vestibular disorders. Costs almost nothing — single CSS media query. |
 | **NFR37:** Real-time updates and keyboard focus | List updates do not disrupt keyboard focus position. Screen reader users notified via ARIA live regions without focus displacement. | Prevents disorienting focus jumps for assistive technology users when new attendees appear on the list. |
@@ -807,12 +807,12 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 
 | Requirement | Target | Rationale |
 |---|---|---|
-| **NFR38:** LinkedIn OAuth API unavailability handling | Previously authenticated attendees continue browsing via client-side cached attendee list. First-time authentication requires LinkedIn availability — system displays clear error if LinkedIn is unreachable during initial auth. | First auth depends on LinkedIn. Returning users must not be blocked by LinkedIn outages. |
+| **NFR38:** LinkedIn OAuth API unavailability handling | Previously authenticated attendees continue browsing via client-side cached attendee list. System detects LinkedIn API unavailability within 10 seconds and displays user-facing status message for first-time auth attempts. | First auth depends on LinkedIn. Returning users must not be blocked by LinkedIn outages. |
 | **NFR39:** LinkedIn API rate limit compliance | Stay within published rate limits with margin | Exceeding limits risks temporary or permanent API access revocation. |
-| **NFR40:** LinkedIn API abstraction layer | System architecture isolates LinkedIn API interactions behind an abstraction layer, enabling API version updates without full application redeployment. | LinkedIn periodically updates API versions. Abstraction layer enables rapid adaptation without disrupting the entire application. |
+| **NFR40:** LinkedIn API change isolation | LinkedIn API version updates can be accommodated without full application redeployment. API-facing changes deploy independently from the rest of the application. | LinkedIn periodically updates API versions. Isolation enables rapid adaptation without disrupting the entire application. |
 
 ### Observability
 
 | Requirement | Target | Rationale |
 |---|---|---|
-| **NFR41:** Real-time KPI monitoring during active events | Admin can view response times, connection count, and error rates in real time during events | Carlos needs to know if the system is struggling during a live pilot. Without observability, NFR compliance is unverifiable in production. |
+| **NFR41:** Event observability | Response times, connection counts, and error rates available within 5 seconds of event occurrence during active events | Carlos needs to know if the system is struggling during a live pilot. Without observability, NFR compliance is unverifiable in production. |
