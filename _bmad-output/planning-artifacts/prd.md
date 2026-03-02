@@ -69,7 +69,7 @@ Strategically, the product generates unique attendee journey data — scan times
 
 - **3-month target:** Successful deployment at 2-3 pilot events (C3G, Atlanta Job Seekers) with activation rates above 50% of attendees scanning in
 - **6-month target:** Organic adoption by 5+ event organizers through word-of-mouth, with organizers requesting repeat deployment unprompted
-- **12-month target:** Establish session-scoped attendee journey data as a unique market asset — the only source of cross-session attendance flow data in the events industry
+- **12-month target:** Leverage session-scoped attendee journey data (captured from MVP day one) as a unique market asset — the only source of cross-session attendance flow data in the events industry
 - **Go/no-go signal:** If activation rate falls below 25% at pilot events, the core value proposition needs re-evaluation before scaling
 
 ### Technical Success
@@ -92,13 +92,15 @@ Strategically, the product generates unique attendee journey data — scan times
 | Real-time update latency | <3 seconds | WebSocket delivery measurement |
 | Uptime during events | 99.5% | Server monitoring during event windows |
 | Distraction health check | <30% of taps during active sessions | Tap timestamp analysis vs. event schedule |
+| Multi-session scanning rate | >60% of attendees scan at 2+ sessions (at multi-session events) | Unique attendees with scan events in multiple sessions / total unique attendees |
+| Cross-session attendance rate | Track % of attendees who appear in multiple session attendee lists per event | Session-switch events + multi-session scan count per attendee |
 
 ## Product Scope
 
 ### MVP - Minimum Viable Product
 
 **Attendee Experience:**
-1. Single-event QR code scanning — one QR code per event
+1. Per-session QR code scanning — each session within an event gets its own QR code (URL: `/event/:eventSlug/session/:sessionSlug`). In single-session events, the event has one session and one QR code. In multi-session events (e.g., RUMC with up to 7 concurrent rooms), each room gets its own QR code and printable sign with session name and room number.
 2. LinkedIn-only authentication — name, title, company, photo from LinkedIn OAuth
 3. Live attendee list — real-time directory with automatic updates (no manual refresh)
 4. One-tap LinkedIn profile access — tap any attendee to land on their LinkedIn profile
@@ -106,8 +108,8 @@ Strategically, the product generates unique attendee journey data — scan times
 6. Simple open-door feedback — unstructured text prompt triggered post-event only
 
 **Organizer Experience:**
-7. Zero-effort event setup — organizer shares agenda, receives QR code (manual parsing by Carlos for pilots)
-8. Basic analytics dashboard — real-time scan count, total profile taps, simplified user journey visualization
+7. Zero-effort event setup — organizer shares agenda, receives QR codes per session (manual parsing by Carlos for pilots)
+8. Per-session analytics dashboard — real-time scan count per session, total profile taps per session, cross-session attendance flow, and simplified user journey visualization
 9. Post-event summary report — exportable report for sponsors
 
 **Back-End Infrastructure:**
@@ -115,13 +117,13 @@ Strategically, the product generates unique attendee journey data — scan times
 
 ### Growth Features (Post-MVP)
 
-**V2 — Session-First Model:**
-- Session-scoped QR codes with individual attendee lists per session
-- Full event aggregate tab with collapsible session groups and live attendee status
+**V2 — Enhanced Session & Analytics:**
+- Event-wide aggregate tab with collapsible session groups and live attendee status
 - Search/filter across all sessions by name, company, or title
 - Enhanced organizer analytics with cross-session attendee journey mapping
 - Speakers scan in and appear in session lists
 - Recurring event intelligence — "Who's new this week?" and attendance streaks
+- Per-session lifecycle management (independent session start/end times and transitions)
 
 **V2+ Enhancements:**
 - AI-generated intro video with organizer/sponsor branding potential
@@ -157,8 +159,8 @@ The product distributes itself within event venues through social proof. When mu
 **4. Zero-Friction Identity via LinkedIn (Technical Innovation)**
 By using LinkedIn OAuth as the sole identity layer, the product eliminates profile creation, manual data entry, and trust verification in a single architectural decision. Every attendee's professional context (name, title, company, photo) is instant, accurate, and trusted — not self-reported. This solves the "empty profile" cold-start problem that kills most networking apps. The innovation is choosing NOT to build identity infrastructure and instead borrowing LinkedIn's — turning a dependency into a competitive advantage.
 
-**5. Session-Scoped Networking (Future Innovation)**
-The V2 session-first model — where every session within a larger event has its own QR code and attendee list — creates a granularity of networking data that doesn't exist anywhere. Current event platforms track registration and check-in. Who Else Is Here will track which specific sessions people attended and who they tried to connect with in each session. This enables organizer analytics ("73% of keynote attendees also attended the AI workshop") and attendee intelligence ("people in your industry tend to connect most actively during panel discussions") that no competitor can replicate without the same installed base.
+**5. Session-Scoped Networking (MVP Foundation)**
+Per-session QR codes are an MVP feature — each session within an event has its own QR code and attendee list from day one. Sessions are the foundation of events: in big events, sessions occur sequentially, with overlaps, or concurrently. The RUMC agenda shows up to 7 concurrent sessions in different rooms, each needing its own QR code. This creates a granularity of networking data that doesn't exist anywhere. Current event platforms track registration and check-in. Who Else Is Here tracks which specific sessions people attended and who they tried to connect with in each session. This enables organizer analytics ("73% of keynote attendees also attended the AI workshop") and attendee intelligence ("people in your industry tend to connect most actively during panel discussions") that no competitor can replicate without the same installed base. V2 adds the event-wide aggregate view with collapsible session groups.
 
 ### Market Context & Competitive Landscape
 
@@ -176,7 +178,7 @@ Each innovation will be validated through pilot deployments at recurring events:
 2. **Journey data byproduct:** Confirm journey data captures naturally without impacting UX. Validate data quality is sufficient for organizer analytics after 3+ pilot events.
 3. **Social proof distribution:** Observe and document in-venue adoption patterns at pilot events. Track whether activation rates increase in later sessions as social proof builds.
 4. **LinkedIn identity:** Monitor OAuth completion rates. If >90% of scan attempts complete LinkedIn auth, the single-identity approach is validated. Track whether LinkedIn's API scope provides all needed profile data.
-5. **Session-scoped networking (V2):** Validate demand through MVP feedback. If attendees organically request "show me everyone at the whole conference," the session-first model is market-validated before development.
+5. **Session-scoped networking (MVP):** Per-session QR codes ship in MVP. Validate that multi-session scanning occurs organically at pilot events. If attendees request "show me everyone at the whole conference," the event-wide aggregate view (V2) is market-validated before development.
 
 ### Risk Mitigation
 
@@ -260,15 +262,39 @@ The failed LinkedIn tap doesn't silently fail. Instead, the app shows the person
 
 ---
 
+### Journey 3b: Alex — Session Hop (The Organic Growth Engine)
+
+**Who:** Alex, attending a RUMC networking event with 5 concurrent sessions in different rooms. Alex scanned the QR code at Session A (Resume Workshop in Room 101) 45 minutes ago and has been browsing the attendee list.
+
+**Opening Scene:** The Resume Workshop wraps up. Alex walks to Room 204 for the Interview Skills session. On the table, there's a different QR code — same "Who Else Is Here?" branding, but this sign says "Interview Skills — Room 204."
+
+**Rising Action:** Alex scans the new QR code. The browser opens — but instead of a LinkedIn OAuth prompt, the attendee list for the Interview Skills session loads immediately. No login. No re-authentication. Alex's name, photo, and title appear on the Interview Skills list within seconds. The app recognized Alex from the existing session cookie and used the cached LinkedIn profile. Total elapsed time: 4 seconds.
+
+**Climax:** Alex now sees a completely different set of 28 attendees — people in Room 204. Alex spots a hiring manager from a target company who wasn't in the Resume Workshop. Meanwhile, Alex's scan is recorded as a `session_switch` event, and the system now knows Alex attended both sessions.
+
+**The Organic Growth Moment:** The person sitting next to Alex notices the attendee list on Alex's phone. "What's that?" Alex says: "Scan that QR code — you can see everyone in this room." That person scans, sees the frictionless flow, and tells the person next to them. Alex has become the organic growth engine — an attendee who discovered value in one session and now evangelizes in the next.
+
+**Resolution:** By the end of the event, Alex has scanned at 3 of the 5 sessions. The journey data captures Alex's full cross-session path: Resume Workshop → Interview Skills → Networking Mixer. This is the session-hopping attendee pattern — a first-class user flow, not an edge case.
+
+**Requirements Revealed:**
+- Per-session QR codes with session name and room number on signage (FR29, FR30)
+- Frictionless session hop — no re-authentication on subsequent session scans (FR55)
+- `session_switch` event captured in journey data (FR50b)
+- Each session has its own attendee list
+- The session-hopping attendee is the organic growth engine — she discovers value, then spreads it
+
+---
+
 ### Journey 4: Karen — Happy Path (The Organizer Deployment)
 
 **Who:** Karen Griggs Medley, coordinator for RUMC Job Networking, a biweekly career networking event at a church in Roswell, GA. 40-60 attendees per session. Karen has been running this event for 2 years and has never had data on whether attendees actually connect with each other.
 
 **Opening Scene:** Carlos approaches Karen after a RUMC session and explains Who Else Is Here. Karen is intrigued but wary — she's seen event tech come and go, and she doesn't have budget or technical skills. Carlos says: "Just send me your agenda. I'll handle everything. All you need to do is put QR codes on the tables."
 
-**Rising Action:** Karen emails Carlos a PDF of her standard agenda. 48 hours later, Carlos sends back: a print-ready QR code image with the signage text "Who Else Is Here? See everyone at this event. Scan to join." plus the short URL `whois.here/rumc-mar10`, and simple instructions: "Print these on table tents or tape to the registration table. That's it."
+**Rising Action:** Karen emails Carlos a PDF of her standard agenda — which includes 5 concurrent sessions in different rooms. 48 hours later, Carlos sends back: 5 print-ready QR code images, each with the session name and room number (e.g., "Resume Workshop — Room 101"), the signage text "Who Else Is Here? See everyone at this session. Scan to join," plus session-specific short URLs (e.g., `whois.here/rumc-mar10/resume-workshop`), and simple instructions: "Put each sign in the matching room. That's it."
 
-At the next RUMC session, Karen places the QR codes on 6 tables. She watches with curiosity as attendees start scanning. She hears a few intro videos playing from nearby phones. She sees people looking at their phones, then looking up and scanning the room — the behavior shift from "blind networking" to "informed networking" is visible.
+At the next RUMC event, Karen places the correct QR code sign in each of the 5 rooms. She watches with curiosity as attendees start scanning. She hears a few intro videos playing from nearby phones. She sees people looking at their phones, then looking up and scanning the room — the behavior shift from "blind networking" to "informed networking" is visible.
+<!-- MVP NOTE: Intro audio/video is explicitly deferred to post-MVP (see MVP scope item #18). Social proof works through visible scanning behavior at pilot scale. -->
 
 **Climax:** The next morning, Karen opens an email from Carlos with a post-event summary:
 - "38 attendees scanned in (out of ~55 present — 69% activation)"
@@ -281,9 +307,10 @@ Karen has NEVER had this data. She forwards the summary to her church leadership
 **Resolution:** Karen asks Carlos: "Can we do this at every session?" She starts mentioning Who Else Is Here in her pre-event emails to attendees. At the next session, activation rate jumps to 78% — attendees arrive expecting to scan.
 
 **Requirements Revealed:**
-- Admin-generated QR code with customizable event name and short URL
-- Print-ready QR code image export (high-res, suitable for table tents and banners)
-- Short URL alongside QR code as scanning fallback (memorable format: `whois.here/[event-slug]`)
+- Admin-generated QR codes per session with session name, room number, and short URL
+- Bulk QR code generation for multi-session events (Carlos creates all session QR codes from a single event setup)
+- Print-ready QR code image export per session (high-res, suitable for table tents and banners)
+- Short URL alongside QR code as scanning fallback (memorable format: `whois.here/[event-slug]/[session-slug]`)
 - Post-event summary report: scan count, activation rate, total taps, taps per user, activity timeline
 - Report delivered via email or exportable format Karen can forward
 - QR code signage must answer three objections at a glance: "What is this?" / "Is it safe?" / "Why should I?"
@@ -302,9 +329,9 @@ Karen has NEVER had this data. She forwards the summary to her church leadership
 - Venue: "Roswell United Methodist Church"
 - Short URL slug: "rumc-mar10"
 
-Carlos pastes the agenda text into a free-form field. In MVP, Carlos manually extracts session details. The admin panel generates: a unique QR code linking to the event, a print-ready image, and the short URL. Carlos downloads the assets and emails them to Karen.
+Carlos pastes the agenda text into a free-form field. In MVP, Carlos manually extracts session details and creates each session with its name, time slot, and room number/location. The admin panel generates: a unique QR code per session (URL: `/event/rumc-mar10/session/resume-workshop`), print-ready images with session name and room number, and session-specific short URLs. Carlos downloads all session QR code assets and emails them to Karen with placement instructions ("Resume Workshop sign goes in Room 101").
 
-**Design Principle:** This admin panel is the seed of Karen's future self-service tool. Every field Carlos fills in manually is a field that AI will eventually auto-populate from the agenda PDF. The workflow structure (agenda in → parsed event → QR code out) must be a clean pipeline with a clear "parsing" step where AI can be inserted later without restructuring.
+**Design Principle:** This admin panel is the seed of Karen's future self-service tool. Every field Carlos fills in manually is a field that AI will eventually auto-populate from the agenda PDF. The workflow structure (agenda in → parsed sessions → QR codes out) must be a clean pipeline with a clear "parsing" step where AI can be inserted later without restructuring.
 
 **During the Event:** Carlos monitors a real-time dashboard showing:
 - Live scan count and activation rate
@@ -321,9 +348,10 @@ Carlos can see across ALL active events simultaneously (super-admin view). In V2
 
 **Requirements Revealed:**
 - Minimal web-based admin panel (not CLI) — designed as the foundation for Karen's future self-service UI
-- Event creation workflow: name, date/time, venue, short URL slug, agenda text → generates QR code + short URL
+- Event creation workflow: name, date/time, venue, short URL slug, agenda text → create sessions with name, time, room → generates QR codes per session + short URLs
+- Bulk session creation from a single event setup (Carlos creates all sessions for multi-room events like RUMC)
 - Clean pipeline architecture with explicit "parsing" step — AI integration socket for post-MVP
-- Print-ready QR code image export
+- Print-ready QR code image export per session (with session name and room number)
 - Real-time monitoring dashboard: scan count, tap activity, system health
 - Super-admin view across all events (Carlos in MVP) vs. event-scoped admin view (Karen in V2)
 - Role-based access in the schema from day one (super-admin, event-admin) even if MVP only uses super-admin
@@ -339,6 +367,7 @@ Carlos can see across ALL active events simultaneously (super-admin view). In V2
 **Opening Scene:** Dave settles into his seat at a table with 7 other people. He notices the table tent with the QR code: "Who Else Is Here? See everyone at this event. Scan to join." Dave glances at it, thinks *"Another app trying to harvest my data,"* and ignores it.
 
 **Rising Action:** Around him, 4 of the 7 people at his table pull out their phones and scan. Dave hears the brief intro audio from two phones nearby. He sees people looking at their screens, then looking up with recognition — one person says to another, "Oh, you're at Acme Corp? I've been wanting to talk to someone there!" A conversation sparks that wouldn't have happened otherwise.
+<!-- MVP NOTE: Intro audio/video is explicitly deferred to post-MVP (see MVP scope item #18). Social proof works through visible scanning behavior at pilot scale. -->
 
 Dave watches. The social proof is building. Two people at his table are now showing each other their screens — "Look, the VP of Engineering from Delta is here tonight!" Dave's curiosity is growing, but his resistance holds.
 
@@ -357,6 +386,7 @@ Dave watches. The social proof is building. Two people at his table are now show
   2. "Is it safe?" → "LinkedIn sign-in only. No data shared with others."
   3. "Why should I?" → "Make yourself visible so the right people can find you"
 - Intro video/audio should have brief, pleasant presence (social proof mechanic) — not silent. Mute option available.
+<!-- MVP NOTE: Deferred to post-MVP (item #18). Included in journey narrative for completeness but not in MVP implementation scope. -->
 - The app must be valuable at any adoption level — graceful degradation with partial scanning
 - Privacy transparency: clear indication of what data is collected and how it's used
 - No penalty or visibility for non-scanners — Dave's absence is invisible
@@ -376,7 +406,7 @@ These are not user-triggered journeys but automated system behaviors that must b
 
 3. **LinkedIn OAuth token management:** Tokens refreshed or re-authenticated as needed. If a token expires while the attendee list is open, the cached list remains visible but LinkedIn taps prompt re-authentication.
 
-4. **Journey data capture:** Every user interaction is logged asynchronously — scan timestamp, list browse events, profile tap events, return visit timestamps. This runs in the background without impacting UI performance.
+4. **Journey data capture:** Every user interaction is logged asynchronously — scan timestamp (with session identifier), list browse events, profile tap events, return visit timestamps, and `session_switch` events when an attendee moves between sessions. This runs in the background without impacting UI performance.
 
 ---
 
@@ -399,12 +429,16 @@ These are not user-triggered journeys but automated system behaviors that must b
 | Three-objection signage framework | Dave Anti-Persona | MVP Critical |
 | Post-event summary report (exportable) | Karen Happy Path | MVP Critical |
 | Minimal web-based admin panel | Carlos Operator | MVP Critical |
-| Event creation pipeline (agenda → QR code) | Carlos Operator | MVP Critical |
+| Event creation pipeline (agenda → sessions → per-session QR codes) | Carlos Operator | MVP Critical |
 | AI pipeline socket in event creation workflow | Carlos Operator | Post-MVP (design now) |
 | Role-based access schema (super-admin, event-admin) | Carlos Operator | MVP (schema only) |
 | Automated event lifecycle (active → post-event → archived) | System-as-Actor | MVP Critical |
 | 5-day post-event access window | Alex Happy Path, System-as-Actor | MVP Critical |
 | Post-event feedback prompt (unstructured, triggered once) | Alex Happy Path | MVP Important |
+| Per-session QR codes with session name and room number | Alex Session Hop, Karen Happy Path | MVP Critical |
+| Frictionless session hop — no re-auth on subsequent scans (FR55) | Alex Session Hop | MVP Critical |
+| `session_switch` journey event capture (FR50b) | Alex Session Hop | MVP Critical |
+| Bulk session QR code generation for multi-session events | Carlos Operator, Karen Happy Path | MVP Critical |
 | Intro audio cue for social proof | Dave Anti-Persona | MVP Important |
 | Minimal LinkedIn OAuth scope (name, photo, title, company) | Dave Anti-Persona | MVP Critical |
 | Graceful degradation with partial adoption | Dave Anti-Persona | MVP (design principle) |
@@ -584,7 +618,8 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - Alex Happy Path (QR → OAuth → browse → tap → LinkedIn)
 - Alex Cold Start (tiered messaging for early scanners)
 - Alex Connectivity Failure (PWA offline caching, copyable LinkedIn URL fallback)
-- Karen Happy Path (agenda → QR code → deploy → receive analytics report)
+- Alex Session Hop (scan Session A → walk to Session B → scan again → no re-auth → instant list)
+- Karen Happy Path (agenda → per-session QR codes → deploy in each room → receive analytics report)
 - Carlos System Operator (event creation → monitoring → report generation)
 - Dave Reluctant Scanner (minimal OAuth scope, graceful partial adoption)
 
@@ -600,12 +635,15 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 | 6 | 5-day post-event access window | Extends value beyond the venue. Return visits are a key success metric. |
 | 7 | Automated event lifecycle (active → post-event → archived) | Without automated transitions, events stay live forever or require manual intervention. |
 | 8 | Minimal LinkedIn OAuth scope (name, photo, title, company only) | Privacy-conscious attendees (Dave) won't scan if permissions look invasive. Trust is a deal-breaker for adoption. |
-| 9 | Admin panel: event creation → QR code generation | Carlos cannot run pilots without a basic admin interface. Manual alternative doesn't scale even for 2 concurrent events. |
+| 9 | Admin panel: event creation → session creation → per-session QR code generation | Carlos cannot run pilots without a basic admin interface. RUMC has up to 7 concurrent sessions — manual QR code generation doesn't scale. |
 | 10 | Basic analytics dashboard (real-time scan count, total taps, activity timeline) | Karen's "aha moment." Without data, the organizer value proposition is empty — there's nothing to show sponsors. |
 | 11 | Post-event summary report (exportable) | Karen needs something to forward to stakeholders. The data must leave the admin panel in a shareable format. |
 | 12 | Full user journey data capture (backend) | Schema captures every scan, tap, browse, and return visit from day one. Without this, V2 analytics have no historical data to build on. |
 | 13 | Multi-tenant, session-aware database schema | Architecture designed from day one. Retrofitting multi-tenancy and session awareness later requires painful data migration. |
 | 14 | HTTPS everywhere + secure OAuth token handling | Non-negotiable. LinkedIn OAuth requires HTTPS. Token security is table stakes. |
+| 14b | Per-session QR codes with session name and room number | Sessions are the foundation of events. RUMC has up to 7 concurrent sessions — each room needs its own QR code. Without this, multi-session events cannot be supported. |
+| 14c | Frictionless session hop (no re-auth on subsequent session scans) | OAuth happens once. Subsequent QR scans use HTTP session cookie. Without this, session-hopping attendees face friction that kills cross-session adoption. |
+| 14d | `session_switch` journey event capture | Tracks the full attendee journey across sessions. Without this, cross-session attendance data — the unique market asset — is lost. |
 
 **MVP-Important (Enhance Experience, Not Make-or-Break):**
 
@@ -625,7 +663,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 
 ### Post-MVP Features
 
-*See Product Scope for the complete Growth (V2/V2+) and Vision (V3/Long-Term) roadmap. The phased development sequence is: MVP Pilots → Phase 2 Growth (session-first model, enhanced analytics, self-service admin) → Phase 3 Expansion (AI matching, pricing tiers, event intelligence platform).*
+*See Product Scope for the complete Growth (V2/V2+) and Vision (V3/Long-Term) roadmap. Per-session QR codes and frictionless session hopping are MVP features. The phased development sequence is: MVP Pilots (per-session QR codes, session-hop flow, cross-session journey capture) → Phase 2 Growth (event-wide aggregate view, enhanced analytics, self-service admin, per-session lifecycle) → Phase 3 Expansion (AI matching, pricing tiers, event intelligence platform).*
 
 ### Risk Mitigation Strategy
 
@@ -660,7 +698,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 
 ### Attendee Identity & Access
 
-- **FR1:** Attendee can scan a QR code or enter a short URL to access an event's attendee list
+- **FR1:** Attendee can scan a session-specific QR code or enter a session short URL to access that session's attendee list
 - **FR2:** Attendee can authenticate via LinkedIn OAuth, providing name, photo, title, and company
 - **FR3:** Attendee can access the attendee list for up to 5 days after the event ends
 - **FR4:** Attendee can access the attendee list from any supported browser on mobile or desktop
@@ -669,14 +707,14 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - **FR7:** System displays a status-specific message (invalid, expired, or archived) when an attendee accesses a non-active event URL, with guidance to contact the event organizer
 - **FR8:** System displays a loading indicator during the authentication and list-loading process so the attendee knows the app is working
 - **FR9:** System displays an error message identifying the failure type when LinkedIn authentication fails, with a retry action
-- **FR10:** System supports multiple concurrent sessions per attendee per event (e.g., phone at event and laptop at home during post-event window)
+- **FR10:** System supports multiple concurrent browser sessions per attendee per event (e.g., phone at event and laptop at home during post-event window). *Note: "sessions" here refers to HTTP browser sessions, not event sessions. An attendee can only be physically present at one event session at a time, but may have multiple browser tabs/devices open simultaneously.*
 
 ### Attendee List & Networking
 
-- **FR11:** Attendee can view a real-time list of all other authenticated attendees at the same event
+- **FR11:** Attendee can view a real-time list of all other authenticated attendees at the same session
 - **FR12:** Attendee can see each attendee's name, title, company, and LinkedIn photo on the list
 - **FR13:** Attendee can see their own entry on the attendee list after authentication, confirming successful registration
-- **FR14:** Attendee can see the total number of authenticated attendees at the current event
+- **FR14:** Attendee can see the total number of authenticated attendees at the current session (session-scoped count, not event-wide)
 - **FR15:** Attendee can see new attendees appear on the list in real time without manual refresh
 - **FR16:** Attendee can tap any attendee's name to navigate directly to that person's LinkedIn profile
 - **FR17:** Attendee can copy a LinkedIn profile URL when direct navigation fails (offline fallback)
@@ -698,10 +736,10 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 ### Event Administration
 
 - **FR26:** Admin can authenticate to the admin panel using secure credentials
-- **FR27:** Admin can create a new event with name, date/time, venue, and short URL slug
+- **FR27:** Admin can create a new event with name, date/time, venue, and short URL slug, and can create one or more sessions within the event, each with a session name, time slot, and room number/location
 - **FR28:** Admin can input event agenda content for the event record
-- **FR29:** Admin can generate a unique QR code and short URL for an event
-- **FR30:** Admin can download a print-ready QR code image that includes the event short URL as visible text alongside the QR code graphic
+- **FR29:** Admin can generate a unique QR code and short URL per session within an event (URL format: `/event/:eventSlug/session/:sessionSlug`). For single-session events, one QR code is generated. For multi-session events, each session gets its own QR code.
+- **FR30:** Admin can download a print-ready QR code image per session that includes the session short URL as visible text, the session name, and the room number/location alongside the QR code graphic. Each printable sign identifies the specific session so organizers can place the correct sign in each room.
 - **FR31:** Admin can view a real-time monitoring dashboard during active events showing scan count and tap activity
 - **FR32:** Admin can view system health indicators (server responsiveness, connection stability) during active events
 - **FR33:** Admin can view all active events simultaneously (super-admin view)
@@ -714,12 +752,12 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 - **FR37:** Admin can view total profile taps and average taps per attendee
 - **FR38:** Admin can view an activity timeline showing scan and tap patterns over the event duration
 - **FR39:** Admin can view attendee journey data (scan timestamps, return visits, profile taps per attendee)
-- **FR40:** Admin can view distraction health metrics showing the ratio of profile taps occurring during active event sessions versus breaks (depends on FR28: event agenda must include session/break times for ratio calculation)
+- **FR40:** Admin can view distraction health metrics per session, showing the ratio of profile taps occurring during that session's active time slot versus outside it (depends on session `scheduled_start` and `scheduled_end`). With concurrent sessions, this metric is per-session — there is no single "break" time across the event.
 
 ### Event Lifecycle Management
 
-- **FR41:** System automatically transitions events from active to post-event status when the event end time passes
-- **FR42:** System disables QR code scanning for post-event status events
+- **FR41:** System automatically transitions individual sessions from active to post-event status when each session's `scheduled_end` time passes. The event's status is derived from its sessions: if any session is active, the event is active; if all sessions are post-event or archived, the event is post-event; if all sessions are archived, the event is archived. This means concurrent sessions that end at different times transition independently.
+- **FR42:** System disables QR code scanning for all sessions in post-event status events
 - **FR43:** System automatically transitions events from post-event to archived status after 5 days
 - **FR44:** System retains all event data after archiving for analytics and journey intelligence
 - **FR45:** System retains archived event data for 12 months after the event end date, after which attendee personal data (name, photo URL, LinkedIn profile URL) is anonymized by replacing with anonymized identifiers while retaining event-level aggregate analytics and timestamp data
@@ -727,10 +765,11 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 
 ### Data Capture & Infrastructure
 
-- **FR47:** System captures and stores every scan event with timestamp
-- **FR48:** System captures and stores every profile tap event with timestamp
-- **FR49:** System captures and stores every list browse session with timestamp
-- **FR50:** System captures and stores every return visit with timestamp
+- **FR47:** System captures and stores every scan event with timestamp and session identifier
+- **FR48:** System captures and stores every profile tap event with timestamp and session identifier
+- **FR49:** System captures and stores every list browse session with timestamp and session identifier
+- **FR50:** System captures and stores every return visit with timestamp and session identifier
+- **FR50b:** System captures and stores `session_switch` events when a returning attendee scans a QR code for a different session within the same event, recording the source session, target session, and timestamp. Journey data tracks the full cross-session movement pattern per attendee.
 - **FR51:** System isolates event data such that attendees of one event cannot access data from another event
 - **FR52:** System restricts admin access based on assigned role (super-admin sees all events, event-admin sees only their events)
 
@@ -738,6 +777,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 
 - **FR53:** System broadcasts attendee list updates to all connected clients within 3 seconds of a new scan
 - **FR54:** When a client connection drops, the system automatically attempts reconnection with exponential backoff (initial 1s, max 30s). Upon reconnection, the server delivers all attendee list updates missed during disconnection. If reconnection fails after 60 seconds, the client displays the offline indicator (FR19) and falls back to cached list browsing (FR18)
+- **FR55:** When a returning attendee (already authenticated via LinkedIn OAuth within the same event) scans a QR code for a different session, the system uses the existing HTTP session cookie to bypass re-authentication and automatically creates the attendee record in the new session using the cached LinkedIn profile. OAuth happens once per event; subsequent session QR scans are frictionless. This is a core MVP flow, not an edge case.
 
 ## Non-Functional Requirements
 
@@ -754,6 +794,7 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 | **NFR7:** PWA total cache payload | <2MB | Minimizes data consumption for attendees with limited data plans. |
 | **NFR8:** System-controlled OAuth flow (redirect, callback processing, list rendering) | <5 seconds | Testable system target. The LinkedIn OAuth screen itself is outside our control. Total end-to-end experience including LinkedIn's UI targets <30 seconds aspirationally. |
 | **NFR9:** Large attendee list rendering (500 items with photos) | Scrollable and responsive without visible frame drops. No frame longer than 33ms (30fps floor). | Largest supported event scenario. Rendering performance is distinct from connection scaling. |
+| **NFR9b:** Frictionless session hop (returning attendee scans new session QR) | <4 seconds from QR scan to attendee list rendered | Session hop bypasses OAuth entirely (HTTP cookie carries). This is faster than the first-scan flow and must feel near-instant. Measured from browser navigation to DOM render of new session's attendee list. |
 
 ### Security
 
@@ -767,6 +808,8 @@ Accessibility compliance is not extra work — it is "event-proof design." Every
 | **NFR15:** LinkedIn OAuth scope requests only permitted fields | Name, photo, title, company — nothing else | Requesting unnecessary permissions destroys trust (Dave's journey). LinkedIn may revoke apps that over-request. |
 | **NFR16:** Attendee data handling compliant with LinkedIn API Terms of Service | Full compliance. Verified via manual review of LinkedIn API terms before each major release. | LinkedIn can revoke API access for ToS violations. This is an existential dependency. |
 | **NFR17:** Privacy policy publicly accessible | Published at a stable URL and linked from app footer and marketing website | Required by LinkedIn OAuth and builds trust with privacy-conscious attendees. |
+
+*Architecture Note:* WebSocket connections use JWT-based authentication on the handshake (verified server-side before joining any room). This is an architecture-level security decision documented in `architecture.md` — not a separate NFR, as it implements NFR11 (tokens stored server-side) and NFR14 (authenticated access) for the real-time communication layer.
 
 ### Scalability
 

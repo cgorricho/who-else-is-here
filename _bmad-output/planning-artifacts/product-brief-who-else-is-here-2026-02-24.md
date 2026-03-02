@@ -14,7 +14,7 @@ author: Carlos
 
 You're at a large-attendance event. You know the people who could change your career — your next client, your next employer, your next collaborator — are somewhere in this room. But you're stuck at one table, talking to the ten people around you, while hundreds of potential connections walk past. You leave having met a fraction of the room, wondering who you missed.
 
-Who Else Is Here puts every attendee in your pocket. One QR code scan and you see everyone — who they are, what they do, and how to connect. No app downloads. No complex setup. No burden on the event organizer. Just: **see everyone, meet the right ones.**
+Who Else Is Here puts every attendee in your pocket. Scan the room's QR code and you see everyone in that session — who they are, what they do, and how to connect. Walk to the next room, scan again, no re-authentication. No app downloads. No complex setup. No burden on the event organizer. Just: **see everyone, meet the right ones.**
 
 It's the attendee layer for any professional event — from a 20-person meetup to a 5,000-person conference, online or in-person. LinkedIn authentication provides instant professional context. The organizer shares their agenda; we handle the rest. Attendees network without limits.
 
@@ -49,7 +49,7 @@ Additionally, none of these platforms solve the core UX problem: they try to *re
 Who Else Is Here is a **bridge to LinkedIn, scoped to a live event**. It is not a networking platform — it is a real-time, event-scoped attendee directory where every entry links directly to the person's LinkedIn profile.
 
 The experience is radically simple:
-1. **Scan** — Attendee scans a QR code at the event or session
+1. **Scan** — Attendee scans the session's QR code (each room has its own)
 2. **Browse** — See everyone who scanned: name, title, company, photo (from LinkedIn)
 3. **Tap** — Land directly on their LinkedIn profile to explore, connect, or message
 4. **Return** — Come back to the list, find the next person
@@ -65,7 +65,7 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 3. **Full networking lifecycle:** Discovery before, action during, and follow-up after the event.
 4. **Radical simplicity:** QR code to attendee list in under 30 seconds — no downloads, no complex onboarding. The entire UI is essentially a single screen with a list.
 5. **Universal applicability:** From 20-person meetups to 5,000-person conferences, online or in-person, including recurring periodic events with the same format.
-6. **Zero-burden onboarding:** Organizers share their existing agenda (PDF, link, text) — we handle event creation, session extraction, and QR code generation. The organizer's only decision is "yes, deploy the app at my event." We do the rest.
+6. **Zero-burden onboarding:** Organizers share their existing agenda (PDF, link, text) — we handle event creation, session extraction, room assignment, and per-session QR code generation. The organizer's only decision is "yes, deploy the app at my event." We do the rest.
 
 ---
 
@@ -107,7 +107,7 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 - Anecdotal feedback from attendees
 - No data at all for most small/free events
 
-**What Success Looks Like:** Karen shares her existing agenda (PDF, link, text). We create the event, generate QR codes for each session, and hand them back ready to print. At the event, Karen can see real-time data: how many attendees scanned in, which sessions drove the most networking activity, and a post-event report showing the networking footprint of her event.
+**What Success Looks Like:** Karen shares her existing agenda (PDF, link, text). We create the event with concurrent sessions, generate a QR code per session (one per room), and hand them back ready to print. At the event, Karen can see real-time per-session data: how many attendees scanned into each session, cross-session attendance flow, and a post-event report showing the networking footprint of her event broken down by session.
 
 **Emotional Motivation:** "I want to prove my event creates real value." Karen wants data that shows her event isn't just attended — it's where meaningful professional connections happen.
 
@@ -130,20 +130,22 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 
 #### Attendee Journey — "Alex at a Conference"
 
-1. **Discovery:** Alex sees a QR code on a banner, table tent, or projected slide at the event. Or receives a link shared by the organizer before the event.
-2. **Onboarding:** Alex scans the QR code. Authenticates with LinkedIn (or GitHub/Google with a brief profile prompt). Takes under 30 seconds.
-3. **Core Usage:** Alex browses the attendee list — name, title, company, photo. Taps a name, lands on their LinkedIn profile. Decides to connect, message, or find them in the room. Returns to the list to find the next person.
-4. **Engage:** Alex bookmarks profiles they're interested in — a simple one-tap action. This is a personal organizational tool. As a byproduct, the bookmarked person sees a badge on their own app view: "4 people bookmarked you at this event" — a lightweight awareness nudge that signals "check your LinkedIn, someone here is trying to connect with you." No names revealed, no matching mechanics, no in-app messaging. Just awareness.
-5. **Success Moment:** Alex spots "VP of Partnerships at [exact company I've been targeting]" on the list, taps through to LinkedIn, sends a connection request with a note: "We're both at [event name] — would love to connect." Bookmarks them in the app.
-6. **Long-term:** Alex expects Who Else Is Here at every event. At recurring meetups (C3G, Atlanta Job Seekers), scanning becomes ritual. Alex checks the list before each session to see who's new.
+1. **Discovery:** Alex sees a QR code posted in Room A — a table tent or projected slide. Each room has its own QR code.
+2. **Onboarding:** Alex scans the Room A QR code. Authenticates with LinkedIn (or GitHub/Google with a brief profile prompt). Takes under 30 seconds. Alex now appears on Room A's attendee list.
+3. **Core Usage:** Alex browses Room A's attendee list — name, title, company, photo. Taps a name, lands on their LinkedIn profile. Decides to connect, message, or find them in the room. Returns to the list to find the next person.
+4. **Session Hop:** Alex walks to Room B for the next session and scans Room B's QR code. No re-authentication required — Alex is immediately recognized and added to Room B's attendee list. Alex sees the people in Room B instantly.
+5. **Engage:** Alex bookmarks profiles they're interested in — a simple one-tap action. This is a personal organizational tool. As a byproduct, the bookmarked person sees a badge on their own app view: "4 people bookmarked you at this event" — a lightweight awareness nudge that signals "check your LinkedIn, someone here is trying to connect with you." No names revealed, no matching mechanics, no in-app messaging. Just awareness.
+6. **Success Moment:** Alex spots "VP of Partnerships at [exact company I've been targeting]" on the Room B list, taps through to LinkedIn, sends a connection request with a note: "We're both at [event name] — would love to connect."
+7. **Organic Growth:** Alex discovers the value of scanning at every session she visits. By the third room, it's automatic — scan, browse, connect. She tells others: "Have you scanned the QR code? You can see everyone in this room." The session-hopping attendee becomes the organic growth engine for the app.
+8. **Long-term:** Alex expects Who Else Is Here at every event. At recurring meetups (C3G, Atlanta Job Seekers), scanning becomes ritual. Alex checks the list before each session to see who's new.
 
 #### Organizer Journey — "Karen Deploys the App"
 
 1. **Discovery:** Karen hears about Who Else Is Here from another organizer or is approached directly.
-2. **Onboarding:** Karen says "yes." Shares her existing agenda PDF. Receives QR codes ready to print. Zero configuration work on her part.
-3. **Core Usage:** At the event, Karen deploys QR codes at registration, session rooms, and common areas. During the event, she can glance at real-time scan counts.
-4. **Success Moment:** Post-event, Karen sees: "247 attendees scanned in. 89 bookmarks created across attendees. Highest networking activity during the Elevator Pitch workshop." She shares this with her sponsors.
-5. **Long-term:** Karen deploys Who Else Is Here at every recurring event. For periodic meetups with the same format, the app handles it automatically — same structure, new date, fresh QR codes.
+2. **Onboarding:** Karen says "yes." Shares her existing agenda PDF. We create the event with multiple concurrent sessions (including room assignments). Karen receives one QR code per session, ready to print. Zero configuration work on her part.
+3. **Core Usage:** At the event, Karen posts each session's QR code in its respective room. During the event, she can glance at real-time per-session scan counts and see cross-session attendance flow in her admin dashboard.
+4. **Success Moment:** Post-event, Karen sees per-session analytics: "Room A: 87 scans, Room B: 62 scans. 58 attendees scanned into 2+ sessions. Highest networking activity during the Elevator Pitch workshop." She shares this with her sponsors.
+5. **Long-term:** Karen deploys Who Else Is Here at every recurring event. For periodic meetups with the same format, the app handles it automatically — same structure, new date, fresh QR codes per session.
 
 ---
 
@@ -176,14 +178,14 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 
 - **3-month target:** Successful deployment at 2-3 pilot events (C3G, Atlanta Job Seekers) with activation rates above 50% of attendees scanning in
 - **6-month target:** Organic adoption by 5+ event organizers through word-of-mouth, with organizers requesting repeat deployment
-- **12-month target:** Establish session-scoped attendee journey data as a unique market asset — the only source of cross-session attendance flow data in the events industry
+- **12-month target:** Leverage the cross-session attendance flow data captured from MVP day one to establish a unique market asset — the only source of session-scoped attendee journey data in the events industry
 
 ### Key Performance Indicators
 
 1. **Pilot validation:** 50+ scans at first pilot event (confirms attendees see value in joining)
 2. **Organizer retention:** Pilot organizers deploy at their next event without being asked (confirms organizer value)
 3. **Networking proof:** Average profile tap rate meets or exceeds the event-size band targets defined above
-4. **Journey data generation:** 60%+ of attendees at multi-session events scan into 2+ sessions (confirms the session-first QR model works)
+4. **Cross-session adoption:** 60%+ of attendees at multi-session events scan into 2+ sessions (MVP KPI — confirms per-session QR codes drive session-hopping behavior and organic growth)
 5. **Distraction health check:** Less than 30% of profile taps occur during active session times (confirms the app supports rather than undermines event engagement)
 
 ---
@@ -193,7 +195,7 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 ### Core Features
 
 **Attendee Experience:**
-1. **Single-event QR code scanning** — One QR code per event, attendees scan to join the attendee list
+1. **Per-session QR code scanning** — Each session gets its own QR code (URL: `/event/:eventSlug/session/:sessionSlug`). At multi-session events (e.g., RUMC with up to 7 concurrent sessions), Karen prints one QR per room. Attendees scan the QR in the room they're in to join that session's attendee list
 2. **LinkedIn-only authentication** — LinkedIn OAuth provides name, title, company, photo. No manual profile fallback in MVP
 3. **Live attendee list** — Real-time directory of everyone who has scanned in, showing name, title, company, and photo from LinkedIn
 4. **One-tap LinkedIn profile access** — Tap any attendee to land directly on their LinkedIn profile
@@ -201,16 +203,16 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 6. **Simple open-door feedback** — A single unstructured text prompt triggered after meaningful engagement (e.g., after 3rd profile tap or post-event), asking "How was your experience? Anything you wish this app could do?"
 
 **Organizer Experience:**
-7. **Zero-effort event setup** — Organizer shares agenda (PDF, link, text); we create the event and generate the QR code
-8. **Basic analytics dashboard** — Real-time scan count, total profile taps, and simplified user journey visualization (scan timeline, engagement patterns, activity over time)
+7. **Zero-effort event setup** — Organizer shares agenda (PDF, link, text); we create the event with multiple concurrent sessions (including room info), generate one QR code per session, and hand them back ready to print and post in each room
+8. **Per-session analytics dashboard** — Real-time scan count per session, total profile taps per session, cross-session attendance flow, and simplified user journey visualization (scan timeline, engagement patterns, activity over time)
 9. **Post-event summary report** — Exportable report Karen can share with sponsors showing networking activity at her event
 
 **Back-End Data Infrastructure:**
-10. **Full user journey data capture** — Every scan timestamp, profile tap, browse session, and return visit captured and stored. Data schema designed for the multi-session future even though the MVP UI exposes only single-event views. This is a strategic asset from day one.
+10. **Full user journey data capture** — Every scan timestamp, session association, profile tap, browse session, and return visit captured and stored. With per-session QR codes from day one, cross-session attendance flow data is captured natively. This is a strategic asset from day one.
 
 ### Out of Scope for MVP
 
-- Session-first model with event-wide aggregate tab (V2)
+- Event-wide aggregate tab showing all sessions combined (V2 — MVP shows individual session lists; Karen sees per-session analytics in admin)
 - AI-generated intro video with organizer/sponsor branding (V2+)
 - Bookmark feature (deferred — dropped as metric and feature)
 - AI matching and recommendation engine (V3)
@@ -229,17 +231,17 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 - **Activation gate:** Activation rate above 25% of event attendees scanning in at pilot events (below this signals insufficient perceived value)
 - **Engagement gate:** Average profile tap rate meets event-size band targets (15-25% for small events, 5-10% for medium)
 - **Organizer retention gate:** Pilot organizers (C3G, Atlanta Job Seekers) request repeat deployment at their next event unprompted
-- **Session-first upgrade signal:** Pilot events generate enough journey data to demonstrate cross-session pattern value AND/OR attendee feedback organically requests event-wide visibility
+- **Cross-session engagement:** 60%+ of attendees at multi-session events scan into 2+ sessions, confirming per-session QR codes drive organic session-hopping behavior
 - **Feedback validation:** Unstructured feedback collected from engaged users provides actionable signals for V2 prioritization
 
 ### Future Vision
 
-**V2 — Session-First Model:**
-- Session-scoped QR codes with individual attendee lists per session
+**V2 — Event-Wide Aggregate & Enhanced Features:**
+*Note: Session-scoped QR codes, per-session attendee lists, and cross-session attendance tracking are now MVP scope.*
 - Full event aggregate tab with collapsible session groups and live attendee status
 - Search/filter across all sessions by name, company, or title
-- Enhanced organizer analytics with cross-session attendee journey mapping
-- Speakers scan in and appear in session lists
+- Enhanced organizer analytics with cross-session attendee journey mapping and visualization
+- Speakers scan in and appear in session lists with speaker designation
 
 **V3 — The Marketplace Emerges:**
 - AI matching and recommendation engine (powered by journey data collected since MVP)
@@ -268,7 +270,7 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 ### Architecture Decisions for PRD
 
 1. **Multi-tenant from day one** — Even though MVP serves pilot events, the database schema must support multi-tenancy to avoid costly refactoring. Single-tenant MVP designs that require migration later are a known anti-pattern.
-2. **Session-aware data schema** — Data model must include event → session hierarchy from day one, even though MVP UI only exposes single-event views. The back-end data capture for the multi-session future must not require schema migration.
+2. **Session-aware data schema** — Data model must include event → session hierarchy from day one. With per-session QR codes in MVP, this hierarchy is actively used in both the UI (per-session attendee lists) and analytics (cross-session attendance flow).
 3. **Event lifecycle management** — Define when an event "ends" (manual organizer action vs. scheduled time) to trigger the 5-day post-event access window and eventual data archival.
 
 ### UX Insights for PRD
@@ -280,7 +282,7 @@ The emotional motivation to scan is not "check in for the organizer." It's: **"M
 ### Strategic Insights for PRD and Beyond
 
 1. **"Nice to have" → "Must have" transition** — The moment Karen depends on analytics for sponsor reports, the app shifts from lightweight add-on to critical event infrastructure. The PRD should account for reliability and uptime expectations that come with this shift.
-2. **Recurring events are the fastest path to organizer lock-in** — Pilot events are recurring: RUMC Job Networking (biweekly), Atlanta Job Seekers (weekly, Fridays), C3G (weekly, Mondays). Month-over-month attendee list evolution ("Who's new this week?"), attendance streaks, and retention signals for organizers are high-value features that compound with each recurrence. This should be prioritized in V2 alongside the session-first model.
+2. **Recurring events are the fastest path to organizer lock-in** — Pilot events are recurring: RUMC Job Networking (biweekly), Atlanta Job Seekers (weekly, Fridays), C3G (weekly, Mondays). Month-over-month attendee list evolution ("Who's new this week?"), attendance streaks, and retention signals for organizers are high-value features that compound with each recurrence. With per-session QR codes already in MVP, cross-session data compounds from day one. Recurring event features should be prioritized in V2.
 3. **Agenda parsing as operational cost** — For MVP pilots, Carlos will manually parse organizer agendas using AI-assisted tooling and document the process. This is acceptable at pilot scale but becomes one of the first urgent automation needs if the app gains traction.
 4. **Activation gate simplification** — Start with the 25% activation rate as a single metric across all event types. Pilot data from small recurring events will reveal whether event-type differentiation is needed. KISS principle applies.
 
