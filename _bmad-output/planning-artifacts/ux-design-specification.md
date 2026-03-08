@@ -2088,3 +2088,38 @@ Progressive enhancement ensures users with `prefers-reduced-motion: reduce` neve
 8. No `outline: none` without replacement focus indicator
 9. Skip link on both attendee view (`#attendee-list`) and admin panel (`#main-content`)
 10. Run `axe-core` before every PR — zero violations
+
+---
+
+## Lovable Visual Reference
+
+Every screen specified in this document has been mocked up using Lovable (19/19 first-pass success rate). These serve as visual validation targets for the Developer agent.
+
+| Resource | Location |
+|----------|----------|
+| Screenshots | `_bmad-output/planning-artifacts/lovable_screenshots_who-else/` |
+| Lovable source code | `_bmad-output/planning-artifacts/lovable-reference-code/` |
+| Prompt kit | `_bmad-output/planning-artifacts/lovable-prompt-kit.md` |
+
+**Screen-to-screenshot mapping:**
+
+| Screen | Screenshot |
+|--------|------------|
+| Cold-start (4 attendees) | `entry_screen_short_version.png` |
+| Full attendee list (10) | `full_attendee_list.png` |
+| Pre-OAuth | `oauth_screen.png` |
+| OAuth loading | `loading_profile_screen_moving_dots.png` |
+| OAuth error | `error_screen.png` |
+| OAuth denial | `denied_screen.png` |
+| Offline state | `offline_screen.png` |
+| Session not started | `event_not_started_screen.png` |
+| Post-event read-only | `post_event_screen.png` |
+| Session archived | `archived_screen.png` |
+| Search filter active | `search_screen.png` |
+| Event lobby | `lobby_screen.png` |
+| Event aggregate (V2) | `event_aggregate.png` |
+| Admin session detail | `admin_screen.png` |
+| Admin sessions list | `admin_sessions_screen.png` |
+| Admin event creation | `admin_create_screen.png` |
+| QR signage preview | `qr_preview_screen.png` |
+| Admin post-event report | `admin_report_screen.png` |

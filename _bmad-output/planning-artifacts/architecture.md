@@ -1114,3 +1114,21 @@ Token refresh, report export format, scanning disable mechanism, anonymization a
 3. `packages/server` — Drizzle schema, database connection, initial migration
 4. Express server with tRPC mount + security middleware + Pino logging
 5. LinkedIn OAuth integration (verify Passport.js + Express 5 compatibility first)
+
+---
+
+## Lovable Visual Reference
+
+A complete set of UI mockups was generated using Lovable (19 screens, 100% first-pass success rate from UX spec). These are **not production code** but serve as visual references and pattern hints for the Developer agent.
+
+| Resource | Location |
+|----------|----------|
+| Lovable source code (React + Tailwind v3) | `_bmad-output/planning-artifacts/lovable-reference-code/` |
+| Screenshots (18 files) | `_bmad-output/planning-artifacts/lovable_screenshots_who-else/` |
+| Prompt kit used to generate | `_bmad-output/planning-artifacts/lovable-prompt-kit.md` |
+
+**Developer agent guidance:**
+- **Primary source of truth:** This architecture doc, the UX spec, and the PRD. Always.
+- **Visual validation:** Compare your rendered output against the Lovable screenshots for pixel-level alignment.
+- **Pattern hints:** Read Lovable page components (`lovable-reference-code/src/pages/`) to understand layout intent — then reimplement using the production stack (Tailwind v4 `@theme`, tRPC, strict TypeScript).
+- **Do not copy-paste** Lovable code. It uses Tailwind v3 syntax, shadcn/ui defaults, and has no backend integration.
